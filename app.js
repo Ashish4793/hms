@@ -241,9 +241,21 @@ app.post("/checkroom" , function(req,res){
         const diff = new Date(endDate - startDate);
         days = diff/1000/60/60/24;
         if(days!=0){
-            tariff = 68*days;
+            if (roomType === "Single Bedded"){
+                tariff = 68 * days;
+            } else if (roomType === "Double Bedded"){
+                tariff = 90 * days;
+            } else {
+                tariff = 150 * days;
+            }
         } else{
-            tariff = 68;
+            if (roomType === "Single Bedded"){
+                tariff = 68;
+            } else if (roomType === "Double Bedded"){
+                tariff = 90;
+            } else {
+                tariff = 150;
+            }
         }
         res.render("room-avail",{inDate : InDate , outDate : OutDate , roomtype : roomType , stayDays : days , totalAmount : tariff});    
     } else {
